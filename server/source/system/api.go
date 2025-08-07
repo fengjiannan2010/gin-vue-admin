@@ -112,17 +112,16 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "system.api.group.customer", Method: "GET", Path: "/customer/customer", Description: "system.api.desc.getSingleCustomer"},
 		{ApiGroup: "system.api.group.customer", Method: "GET", Path: "/customer/customerList", Description: "system.api.desc.getCustomerList"},
 
-		{ApiGroup: "system.api.group.customer", Method: "GET", Path: "/autoCode/getDB", Description: "system.api.desc.getAllDatabases"},
-		{ApiGroup: "system.api.group.customer", Method: "GET", Path: "/autoCode/getTables", Description: "system.api.desc.getDatabaseTables"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/createTemp", Description: "system.api.desc.autoCode"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/preview", Description: "system.api.desc.previewAutoCode"},
-		{ApiGroup: "system.api.group.customer", Method: "GET", Path: "/autoCode/getColumn", Description: "system.api.desc.getSelectedTableFields"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/createPlug", Description: "system.api.desc.createPluginPackage"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/installPlugin", Description: "system.api.desc.installPlugin"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/pubPlug", Description: "system.api.desc.packagePlugin"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/mcp", Description: "自动生成 MCP Tool 模板"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/mcpTest", Description: "MCP Tool 测试"},
-		{ApiGroup: "system.api.group.customer", Method: "POST", Path: "/autoCode/mcpList", Description: "获取 MCP ToolList"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "GET", Path: "/autoCode/getDB", Description: "system.api.desc.getAllDatabases"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "GET", Path: "/autoCode/getTables", Description: "system.api.desc.getDatabaseTables"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/createTemp", Description: "system.api.desc.autoCode"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/preview", Description: "system.api.desc.previewAutoCode"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "GET", Path: "/autoCode/getColumn", Description: "system.api.desc.getSelectedTableFields"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/installPlugin", Description: "system.api.desc.installPlugin"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/pubPlug", Description: "system.api.desc.packagePlugin"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/mcp", Description: "自动生成 MCP Tool 模板"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/mcpTest", Description: "MCP Tool 测试"},
+		{ApiGroup: "system.api.group.codeGenerator", Method: "POST", Path: "/autoCode/mcpList", Description: "获取 MCP ToolList"},
 
 		{ApiGroup: "system.api.group.templateConfiguration", Method: "POST", Path: "/autoCode/createPackage", Description: "system.api.desc.configurationTemplates"},
 		{ApiGroup: "system.api.group.templateConfiguration", Method: "GET", Path: "/autoCode/getTemplates", Description: "system.api.desc.getTemplateFile"},
@@ -191,6 +190,15 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "system.api.group.mediaLibraryCategories", Method: "GET", Path: "/attachmentCategory/getCategoryList", Description: "system.api.desc.categoryList"},
 		{ApiGroup: "system.api.group.mediaLibraryCategories", Method: "POST", Path: "/attachmentCategory/addCategory", Description: "system.api.desc.addEditCategory"},
 		{ApiGroup: "system.api.group.mediaLibraryCategories", Method: "POST", Path: "/attachmentCategory/deleteCategory", Description: "system.api.desc.deleteCategory"},
+
+		{ApiGroup: "system.api.group.versionControl", Method: "GET", Path: "/sysVersion/findSysVersion", Description: "system.api.desc.getVersion"},
+		{ApiGroup: "system.api.group.versionControl", Method: "GET", Path: "/sysVersion/getSysVersionList", Description: "system.api.desc.getVersionList"},
+		{ApiGroup: "system.api.group.versionControl", Method: "GET", Path: "/sysVersion/downloadVersionJson", Description: "system.api.desc.downloadVersionJson"},
+		{ApiGroup: "system.api.group.versionControl", Method: "POST", Path: "/sysVersion/exportVersion", Description: "system.api.desc.createVersion"},
+		{ApiGroup: "system.api.group.versionControl", Method: "POST", Path: "/sysVersion/importVersion", Description: "system.api.desc.syncVersion"},
+		{ApiGroup: "system.api.group.versionControl", Method: "DELETE", Path: "/sysVersion/deleteSysVersion", Description: "system.api.desc.deleteVersion"},
+		{ApiGroup: "system.api.group.versionControl", Method: "DELETE", Path: "/sysVersion/deleteSysVersionByIds", Description: "system.api.desc.batchDeleteVersion"},
+
 	}
 	if err := db.Create(&entities).Error; err != nil {
 		return ctx, errors.Wrap(err, sysModel.SysApi{}.TableName()+" "+global.Translate("general.tabelDataInitFail"))

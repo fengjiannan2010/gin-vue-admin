@@ -268,16 +268,16 @@
     >
       <el-descriptions :column="1" border>
         <el-descriptions-item :label="t('view.superAdmin.params.paramName')">
-          {{ detailFrom.name }}
+          {{ detailForm.name }}
         </el-descriptions-item>
         <el-descriptions-item :label="t('view.superAdmin.params.paramKey')">
-          {{ detailFrom.key }}
+          {{ detailForm.key }}
         </el-descriptions-item>
         <el-descriptions-item :label="t('view.superAdmin.params.paramValue')">
-          {{ detailFrom.value }}
+          {{ detailForm.value }}
         </el-descriptions-item>
         <el-descriptions-item :label="t('view.superAdmin.params.paramDesc')">
-          {{ detailFrom.desc }}
+          {{ detailForm.desc }}
         </el-descriptions-item>
       </el-descriptions>
     </el-drawer>
@@ -577,7 +577,7 @@
     })
   }
 
-  const detailFrom = ref({})
+  const detailForm = ref({})
 
   // 查看详情控制标记
   const detailShow = ref(false)
@@ -592,7 +592,7 @@
     // 打开弹窗
     const res = await findSysParams({ ID: row.ID })
     if (res.code === 0) {
-      detailFrom.value = res.data
+      detailForm.value = res.data
       openDetailShow()
     }
   }
@@ -600,7 +600,7 @@
   // 关闭详情弹窗
   const closeDetailShow = () => {
     detailShow.value = false
-    detailFrom.value = {}
+    detailForm.value = {}
   }
 </script>
 

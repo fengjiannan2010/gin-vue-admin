@@ -13,7 +13,7 @@
         <el-table-column
           align="left"
           :label="t('view.superAdmin.menu.displayName')"
-          min-width="160"
+          min-width="120"
           prop="authorityName"
         >
           <template #default="scope">
@@ -81,7 +81,7 @@
           min-width="360"
           prop="component"
         />
-        <el-table-column align="left" fixed="right" :label="t('general.operations')" :min-width="appStore.operateMinWith" width="280px">
+        <el-table-column align="left" fixed="right" :label="t('general.operations')" :min-width="appStore.operateMinWith">
           <template #default="scope">
             <el-button
               type="primary"
@@ -131,349 +131,395 @@
         </div>
       </template>
 
-      <warning-bar :title="t('view.superAdmin.menu.newMenuNote')" />
-      <el-form
-        v-if="dialogFormVisible"
-        ref="menuForm"
-        :inline="true"
-        :model="form"
-        :rules="rules"
-        label-position="top"
-      >
-        <el-row class="w-full">
-          <el-col :span="16">
-            <el-form-item
-              :label="t('view.superAdmin.menu.filePath')"
-              prop="component"
-            >
-              <components-cascader
-                :component="form.component"
-                @change="fmtComponent"
-              />
-              <span style="font-size: 12px; margin-right: 12px">{{
-                t('view.superAdmin.menu.subMenuNote')
-              }}</span>
-              <el-button
-                style="margin-top: 4px"
-                @click="form.component = 'view/routerHolder.vue'"
-              >
-                {{ t('view.superAdmin.menu.clickMe') }}
-              </el-button>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item
-              :label="t('view.superAdmin.menu.displayName')"
-              prop="meta.title"
-            >
-              <el-input
-                v-model="form.meta.title"
-                autocomplete="off"
-                :placeholder="t('view.superAdmin.menu.titleNote')"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row class="w-full">
-          <el-col :span="8">
-            <el-form-item
-              :label="t('view.superAdmin.menu.routeName')"
-              prop="path"
-            >
-              <el-input
-                v-model="form.name"
-                autocomplete="off"
-                :placeholder="t('view.superAdmin.menu.routeNameNote')"
-                @change="changeName"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item prop="path">
-              <template #label>
-                <span style="display: inline-flex; align-items: center">
-                  <span>{{ t('view.superAdmin.menu.routePath') }}</span>
-                  <el-checkbox
-                    v-model="checkFlag"
-                    style="margin-left: 12px; height: auto"
-                    >{{ t('view.superAdmin.menu.addParameter') }}</el-checkbox
-                  >
-                </span>
-              </template>
+      <warning-bar title="t('view.superAdmin.menu.newMenuNote')" />
 
-              <el-input
-                v-model="form.path"
-                :disabled="!checkFlag"
-                autocomplete="off"
-                :placeholder="t('view.superAdmin.menu.routePathNote')"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item :label="t('view.superAdmin.menu.visibility')">
-              <el-select
-                v-model="form.hidden"
-                style="width: 100%"
-                :placeholder="t('view.superAdmin.menu.visibilityNote')"
-              >
-                <el-option :value="false" :label="t('general.no')" />
-                <el-option :value="true" :label="t('general.yes')" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row class="w-full">
-          <el-col :span="8">
-            <el-form-item :label="t('view.superAdmin.menu.parentId')">
-              <el-cascader
-                v-model="form.parentId"
-                style="width: 100%"
-                :disabled="!isEdit"
-                :options="menuOption"
-                :props="{
-                  checkStrictly: true,
-                  label: 'title',
-                  value: 'ID',
-                  disabled: 'disabled',
-                  emitPath: false
-                }"
-                :show-all-levels="false"
-                filterable
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item
-              :label="t('view.superAdmin.menu.icon')"
-              prop="meta.icon"
-            >
-              <icon v-model="form.meta.icon" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item :label="t('general.order')" prop="sort">
-              <el-input v-model.number="form.sort" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row class="w-full">
-          <el-col :span="8">
-            <el-form-item prop="meta.activeName">
-              <template #label>
-                <div>
-                  <span> {{ t('view.superAdmin.menu.highlightMenu') }} </span>
-                  <el-tooltip
-                    :content="t('view.superAdmin.menu.highlightMenu')"
-                    placement="top"
-                    effect="light"
+      <!-- 基础信息区域 -->
+      <div class="border-b border-gray-200">
+        <h3 class="font-semibold text-gray-700 mb-4">{{ t('view.superAdmin.menu.basicInformation') }}</h3>
+        <el-form
+          v-if="dialogFormVisible"
+          ref="menuForm"
+          :inline="true"
+          :model="form"
+          :rules="rules"
+          label-position="top"
+        >
+          <el-row class="w-full">
+            <el-col :span="24">
+              <el-form-item :label="t('view.superAdmin.menu.filePath')" prop="component">
+                <components-cascader
+                  :component="form.component"
+                  @change="fmtComponent"
+                />
+                <div class="form-tip">
+                  <el-icon><InfoFilled /></el-icon>
+                  <span>{{ t('view.superAdmin.menu.subMenuNote') }}</span>
+                  <el-button
+                    size="small"
+                    type="text"
+                    @click="form.component = 'view/routerHolder.vue'"
                   >
-                    <el-icon><QuestionFilled /></el-icon>
-                  </el-tooltip>
+                    {{ t('view.superAdmin.menu.clickMe') }}
+                  </el-button>
                 </div>
-              </template>
-              <el-input
-                v-model="form.meta.activeName"
-                :placeholder="form.name"
-                autocomplete="off"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="KeepAlive" prop="meta.keepAlive">
-              <el-select
-                v-model="form.meta.keepAlive"
-                style="width: 100%"
-                :placeholder="t('view.superAdmin.menu.keepAliveNote')"
-              >
-                <el-option :value="false" :label="t('general.no')" />
-                <el-option :value="true" :label="t('general.yes')" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="CloseTab" prop="meta.closeTab">
-              <el-select
-                v-model="form.meta.closeTab"
-                style="width: 100%"
-                :placeholder="t('view.superAdmin.menu.closeTabNote')"
-              >
-                <el-option :value="false" :label="t('general.no')" />
-                <el-option :value="true" :label="t('general.yes')" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row class="w-full">
-          <el-col :span="8">
-            <el-form-item>
-              <template #label>
-                <div>
-                  <span> {{ t('view.superAdmin.menu.basicPage') }} </span>
-                  <el-tooltip
-                    :content="t('view.superAdmin.menu.basicPageNote')"
-                    placement="top"
-                    effect="light"
-                  >
-                    <el-icon><QuestionFilled /></el-icon>
-                  </el-tooltip>
-                </div>
-              </template>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row class="w-full">
+            <el-col :span="12">
+              <el-form-item :label="t('view.superAdmin.menu.displayName')" prop="meta.title">
+                <el-input
+                  v-model="form.meta.title"
+                  autocomplete="off"
+                  :placeholder="t('view.superAdmin.menu.titleNote')"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item :label="t('view.superAdmin.menu.routeName')" prop="path">
+                <el-input
+                  v-model="form.name"
+                  autocomplete="off"
+                  :placeholder="t('view.superAdmin.menu.routeNameNote')"
+                  @change="changeName"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
 
-              <el-select
-                v-model="form.meta.defaultMenu"
-                style="width: 100%"
-                :placeholder="t('view.superAdmin.menu.basicPage')"
-              >
-                <el-option :value="false" :label="t('general.no')" />
-                <el-option :value="true" :label="t('general.yes')" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item>
-              <template #label>
-                <div>
-                  <span> 路由切换动画 </span>
-                  <el-tooltip
-                      content="如果设置了路由切换动画，在本路由下的动画优先级高于全局动画切换优先级。"
-                      placement="top"
-                      effect="light"
-                  >
-                    <el-icon><QuestionFilled /></el-icon>
-                  </el-tooltip>
-                </div>
-              </template>
+      <!-- 路由配置区域 -->
+      <div class="border-b border-gray-200">
+        <h3 class="font-semibold text-gray-700 mb-4">{{ t('view.superAdmin.menu.routeConfig') }}</h3>
+        <el-form
+          :inline="true"
+          :model="form"
+          :rules="rules"
+          label-position="top"
+        >
+           <el-row class="w-full">
+             <el-col :span="12">
+               <el-form-item :label="t('view.superAdmin.menu.parentId')">
+                 <el-cascader
+                   v-model="form.parentId"
+                   style="width: 100%"
+                   :disabled="!isEdit"
+                   :options="menuOption"
+                   :props="{
+                     checkStrictly: true,
+                     label: 'title',
+                     value: 'ID',
+                     disabled: 'disabled',
+                     emitPath: false
+                   }"
+                   :show-all-levels="false"
+                   filterable
+                   :placeholder="t('view.superAdmin.menu.parentNote')"
+                 />
+               </el-form-item>
+             </el-col>
+             <el-col :span="12">
+               <el-form-item prop="path">
+                 <template #label>
+                  <div class="inline-flex items-center h-4">
+                     <span>{{ t('view.superAdmin.menu.routePath') }}</span>
+                     <el-checkbox
+                       class="ml-2"
+                       v-model="checkFlag"
+                       >{{ t('view.superAdmin.menu.addParameter') }}</el-checkbox
+                     >
+                    </div>
+                 </template>
+                 <el-input
+                   v-model="form.path"
+                   :disabled="!checkFlag"
+                   autocomplete="off"
+                   :placeholder="t('view.superAdmin.menu.routePathNote')"
+                 />
+               </el-form-item>
+             </el-col>
+           </el-row>
+        </el-form>
+      </div>
 
-              <el-select
-                  v-model="form.meta.transitionType"
-                  style="width: 100%"
-                  placeholder="跟随全局"
-                  clearable
-              >
-                <el-option value="fade" label="淡入淡出" />
-                <el-option value="slide" label="滑动" />
-                <el-option value="zoom" label="缩放" />
-                <el-option value="none" label="无动画" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div>
-        <div class="flex items-center gap-2">
-          <el-button type="primary" icon="edit" @click="addParameter(form)">
+      <!-- 显示设置区域 -->
+      <div class="border-b border-gray-200">
+        <h3 class="font-semibold text-gray-700 mb-4">{{ t('view.superAdmin.menu.displaySettings') }}</h3>
+        <el-form
+          :inline="true"
+          :model="form"
+          :rules="rules"
+          label-position="top"
+        >
+           <el-row class="w-full">
+              <el-col :span="8">
+                <el-form-item :label="t('view.superAdmin.menu.icon')" prop="meta.icon">
+                  <icon v-model="form.meta.icon" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="t('general.order')" prop="sort">
+                  <el-input
+                    v-model.number="form.sort"
+                    autocomplete="off"
+                    :placeholder="t('general.orderNote')"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="t('view.superAdmin.menu.visibility')">
+                  <el-select
+                    v-model="form.hidden"
+                    style="width: 100%"
+                    :placeholder="t('view.superAdmin.menu.visibilityNote')"
+                  >
+                    <el-option :value="false" :label="t('general.no')" />
+                    <el-option :value="true" :label="t('general.yes')" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+        </el-form>
+      </div>
+
+      <!-- 高级配置区域 -->
+      <div class="border-b border-gray-200">
+        <h3 class="font-semibold text-gray-700 mb-4">{{ t('view.superAdmin.menu.advancedConfiguration') }}</h3>
+        <el-form
+          :inline="true"
+          :model="form"
+          :rules="rules"
+          label-position="top"
+        >
+            <el-row class="w-full">
+              <el-col :span="12">
+                <el-form-item prop="meta.activeName">
+                  <template #label>
+                    <div class="label-with-tooltip">
+                      <span>{{ t('view.superAdmin.menu.highlightMenu') }}</span>
+                      <el-tooltip
+                        :content="t('view.superAdmin.menu.highlightMenuNote')"
+                        placement="top"
+                        effect="light"
+                      >
+                        <el-icon><QuestionFilled /></el-icon>
+                      </el-tooltip>
+                    </div>
+                  </template>
+                  <el-input
+                    v-model="form.meta.activeName"
+                    :placeholder="form.name || t('view.superAdmin.menu.highlightMenuSubNote')"
+                    autocomplete="off"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="KeepAlive" prop="meta.keepAlive">
+                  <el-select
+                    v-model="form.meta.keepAlive"
+                    style="width: 100%"
+                    :placeholder="t('view.superAdmin.menu.keepAliveNote')"
+                  >
+                    <el-option :value="false" :label="t('general.no')" />
+                    <el-option :value="true" :label="t('general.yes')" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+             <el-row class="w-full">
+               <el-col :span="8">
+                 <el-form-item label="CloseTab" prop="meta.closeTab">
+                   <el-select
+                     v-model="form.meta.closeTab"
+                     style="width: 100%"
+                     :placeholder="t('view.superAdmin.menu.closeTabNote')"
+                   >
+                     <el-option :value="false" :label="t('general.no')" />
+                     <el-option :value="true" :label="t('general.yes')" />
+                   </el-select>
+                 </el-form-item>
+               </el-col>
+               <el-col :span="8">
+                 <el-form-item>
+                   <template #label>
+                     <div class="label-with-tooltip">
+                       <span> {{ t('view.superAdmin.menu.basicPage') }} </span>
+                       <el-tooltip
+                         :content="t('view.superAdmin.menu.basicPageNote')"
+                         placement="top"
+                         effect="light"
+                       >
+                         <el-icon><QuestionFilled /></el-icon>
+                       </el-tooltip>
+                     </div>
+                   </template>
+                   <el-select
+                     v-model="form.meta.defaultMenu"
+                     style="width: 100%"
+                     :placeholder="t('view.superAdmin.menu.basicPage')"
+                   >
+                     <el-option :value="false" :label="t('general.no')" />
+                     <el-option :value="true" :label="t('general.yes')" />
+                   </el-select>
+                 </el-form-item>
+               </el-col>
+               <el-col :span="8">
+                 <el-form-item>
+                   <template #label>
+                     <div class="label-with-tooltip">
+                       <span>{{ t('view.superAdmin.menu.routeAnimation') }} </span>
+                       <el-tooltip
+                         :content="t('view.superAdmin.menu.routeAnimationNote')"
+                         placement="top"
+                         effect="light"
+                       >
+                         <el-icon><QuestionFilled /></el-icon>
+                       </el-tooltip>
+                     </div>
+                   </template>
+                   <el-select
+                     v-model="form.meta.transitionType"
+                     style="width: 100%"
+                     :placeholder="t('view.superAdmin.menu.routeAnimationGlobal')"
+                     clearable
+                   >
+                     <el-option value="fade" :label="t('view.superAdmin.menu.routeAnimationFade')" />
+                     <el-option value="slide" label="t('view.superAdmin.menu.routeAnimationSlide')" />
+                     <el-option value="zoom" label="t('view.superAdmin.menu.routeAnimationZoom')" />
+                     <el-option value="none" label="t('view.superAdmin.menu.routeAnimationNone')" />
+                   </el-select>
+                 </el-form-item>
+               </el-col>
+             </el-row>
+        </el-form>
+      </div>
+
+      <!-- 菜单参数配置区域 -->
+      <div class="border-b border-gray-200">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-semibold text-gray-700">{{ t('view.superAdmin.menu.menuParameterConfig') }}</h3>
+          <el-button type="primary" size="small" @click="addParameter(form)">
             {{ t('view.superAdmin.menu.addMenuParameters') }}
           </el-button>
         </div>
-        <el-table :data="form.parameters" style="width: 100%; margin-top: 12px">
-          <el-table-column
-            align="left"
-            prop="type"
-            :label="t('view.superAdmin.menu.parameterType')"
-            width="180"
-          >
-            <template #default="scope">
-              <el-select
-                v-model="scope.row.type"
-                :placeholder="t('general.pleaseSelect')"
+            <el-table
+              :data="form.parameters"
+              style="width: 100%"
+              class="parameter-table"
+            >
+              <el-table-column
+                align="center"
+                prop="type"
+                :label="t('view.superAdmin.menu.parameterType')"
+                width="150"
               >
-                <el-option key="query" value="query" label="query" />
-                <el-option key="params" value="params" label="params" />
-              </el-select>
-            </template>
-          </el-table-column>
-          <el-table-column
-            align="left"
-            prop="key"
-            :label="t('view.superAdmin.menu.paremeterKey')"
-            width="180"
-          >
-            <template #default="scope">
-              <div>
-                <el-input v-model="scope.row.key" />
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-            align="left"
-            prop="value"
-            :label="t('view.superAdmin.menu.parameterValue')"
-          >
-            <template #default="scope">
-              <div>
-                <el-input v-model="scope.row.value" />
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column align="left">
-            <template #default="scope">
-              <div>
-                <el-button
-                  type="danger"
-                  icon="delete"
-                  @click="deleteParameter(form.parameters, scope.$index)"
-                >
-                  {{ t('general.delete') }}
-                </el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <div class="flex items-center gap-2 mt-3">
-          <el-button type="primary" icon="edit" @click="addBtn(form)">
-            {{ t('view.superAdmin.menu.addButton') }}
-          </el-button>
-          <el-icon
-            class="cursor-pointer"
-            @click="
-              toDoc('https://www.gin-vue-admin.com/guide/web/button-auth.html')
-            "
-          >
-            <QuestionFilled />
-          </el-icon>
-        </div>
-
-        <el-table :data="form.menuBtn" style="width: 100%; margin-top: 12px">
-          <el-table-column
-            align="left"
-            prop="name"
-            :label="t('view.superAdmin.menu.buttonName')"
-            width="180"
-          >
-            <template #default="scope">
-              <div>
-                <el-input v-model="scope.row.name" />
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-            align="left"
-            prop="name"
-            :label="t('view.superAdmin.menu.comments')"
-            width="180"
-          >
-            <template #default="scope">
-              <div>
-                <el-input v-model="scope.row.desc" />
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column align="left">
-            <template #default="scope">
-              <div>
-                <el-button
-                  type="danger"
-                  icon="delete"
-                  @click="deleteBtn(form.menuBtn, scope.$index)"
-                >
-                  {{ t('general.delete') }}
-                </el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
+                <template #default="scope">
+                  <el-select
+                    v-model="scope.row.type"
+                    :placeholder="t('general.pleaseSelect')"
+                    size="small"
+                  >
+                    <el-option key="query" value="query" label="query" />
+                    <el-option key="params" value="params" label="params" />
+                  </el-select>
+                </template>
+              </el-table-column>
+              <el-table-column align="center" prop="key" :label="t('view.superAdmin.menu.paremeterKey')" width="150">
+                <template #default="scope">
+                  <el-input
+                    v-model="scope.row.key"
+                    size="small"
+                    :placeholder="t('view.superAdmin.menu.paremeterKeyNote')"
+                  />
+                </template>
+              </el-table-column>
+              <el-table-column align="center" prop="value" :label="t('view.superAdmin.menu.parameterValue')">
+                <template #default="scope">
+                  <el-input
+                    v-model="scope.row.value"
+                    size="small"
+                    :placeholder="t('view.superAdmin.menu.parameterValueNote')"
+                  />
+                </template>
+              </el-table-column>
+              <el-table-column align="center" :label="t('general.operations')" width="100">
+                <template #default="scope">
+                  <el-button
+                    type="danger"
+                    size="small"
+                    @click="deleteParameter(form.parameters, scope.$index)"
+                  >
+                    <el-icon><Delete /></el-icon>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
       </div>
+
+      <!-- 可控按钮配置区域 -->
+      <div class="mb-2 mt-2">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-semibold text-gray-700">{{ t('view.superAdmin.menu.buttonConfiguration') }}</h3>
+          <div class="flex items-center gap-2">
+            <el-button type="primary" size="small" @click="addBtn(form)">
+              {{ t('view.superAdmin.menu.addButton') }}
+            </el-button>
+            <el-tooltip
+              :content="t('view.superAdmin.menu.buttonRuleNote')"
+              placement="top"
+              effect="light"
+            >
+              <el-icon
+                class="cursor-pointer text-blue-500 hover:text-blue-700"
+                @click="toDoc('https://www.gin-vue-admin.com/guide/web/button-auth.html')"
+              >
+                <QuestionFilled />
+              </el-icon>
+            </el-tooltip>
+          </div>
+        </div>
+             <el-table
+               :data="form.menuBtn"
+               style="width: 100%"
+               class="button-table"
+             >
+               <el-table-column
+                 align="center"
+                 prop="name"
+                 :label="t('view.superAdmin.menu.buttonName')"
+                 width="180"
+               >
+                 <template #default="scope">
+                   <el-input
+                     v-model="scope.row.name"
+                     size="small"
+                     :placeholder="t('view.superAdmin.menu.buttonNameNote')"
+                   />
+                 </template>
+               </el-table-column>
+               <el-table-column align="center" prop="desc" :label="t('view.superAdmin.menu.comments')">
+                 <template #default="scope">
+                   <el-input
+                     v-model="scope.row.desc"
+                     size="small"
+                     :placeholder="t('view.superAdmin.menu.commentsNote')"
+                   />
+                 </template>
+               </el-table-column>
+               <el-table-column align="center" :label="t('general.operations')" width="100">
+                 <template #default="scope">
+                   <el-button
+                     type="danger"
+                     size="small"
+                     @click="deleteBtn(form.menuBtn, scope.$index)"
+                   >
+                     <el-icon><Delete /></el-icon>
+                   </el-button>
+                 </template>
+               </el-table-column>
+             </el-table>
+       </div>
     </el-drawer>
   </div>
 </template>
@@ -491,7 +537,7 @@
   import { canRemoveAuthorityBtnApi } from '@/api/authorityBtn'
   import { reactive, ref } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
-  import { QuestionFilled } from '@element-plus/icons-vue'
+  import { QuestionFilled, InfoFilled, Delete } from '@element-plus/icons-vue'
   import { toDoc } from '@/utils/doc'
   import { toLowerCase } from '@/utils/stringFun'
   import ComponentsCascader from '@/view/superAdmin/menu/components/components-cascader.vue'
@@ -770,6 +816,54 @@
     align-items: center;
     .el-icon {
       margin-right: 8px;
+    }
+  }
+
+
+
+  .form-tip {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #909399;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .el-icon {
+      color: #409eff;
+    }
+  }
+
+  .label-with-tooltip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .el-icon {
+      color: #909399;
+      cursor: help;
+
+      &:hover {
+        color: #409eff;
+      }
+    }
+  }
+
+  .parameter-table,
+  .button-table {
+    border: 1px solid #ebeef5;
+    border-radius: 6px;
+
+    :deep(.el-table__header) {
+      background-color: #fafafa;
+    }
+
+    :deep(.el-table__body) {
+      .el-table__row {
+        &:hover {
+          background-color: #f5f7fa;
+        }
+      }
     }
   }
 </style>

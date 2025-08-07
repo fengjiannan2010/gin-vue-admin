@@ -1,14 +1,8 @@
 <template>
   <div>
     <div class="sticky top-0.5 z-10">
-      <el-input
-        v-model="filterText"
-        class="w-3/5"
-        :placeholder="t('general.filter')"
-      />
-      <el-button class="float-right" type="primary" @click="relation">{{
-        t('general.confirm')
-      }}</el-button>
+      <el-input v-model="filterText" class="w-3/5" placeholder="t('general.filter')" />
+      <el-button class="float-right" type="primary" @click="relation">{{ t('general.confirm') }}</el-button>
     </div>
     <div class="tree-content clear-both">
       <el-scrollbar>
@@ -37,13 +31,7 @@
                   }"
                   @click.stop="() => setDefault(data)"
                 >
-                  {{
-                    row.defaultRouter === data.name
-                      ? t('view.superAdmin.authority.components.menus.home')
-                      : t(
-                          'view.superAdmin.authority.components.menus.setAsHome'
-                        )
-                  }}
+                  {{ row.defaultRouter === data.name ? t('view.superAdmin.authority.components.menus.home') : t('view.superAdmin.authority.components.menus.setAsHome') }}
                 </el-button>
               </span>
               <span v-if="data.menuBtn.length">
@@ -56,11 +44,7 @@
         </el-tree>
       </el-scrollbar>
     </div>
-    <el-dialog
-      v-model="btnVisible"
-      :title="t('view.superAdmin.authority.components.menus.assignButton')"
-      destroy-on-close
-    >
+    <el-dialog v-model="btnVisible" title="t('view.superAdmin.authority.components.menus.assignButton')" destroy-on-close>
       <el-table
         ref="btnTableRef"
         :data="btnData"
@@ -74,9 +58,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="closeDialog">{{ t('general.close') }}</el-button>
-          <el-button type="primary" @click="enterDialog">{{
-            t('general.confirm')
-          }}</el-button>
+          <el-button type="primary" @click="enterDialog">{{ t('general.confirm') }}</el-button>
         </div>
       </template>
     </el-dialog>
@@ -115,7 +97,6 @@
   const menuTreeData = ref([])
   const menuTreeIds = ref([])
   const needConfirm = ref(false)
-
   const menuDefaultProps = ref({
     children: 'children',
     label: function (data) {
@@ -152,7 +133,7 @@
       defaultRouter: data.name
     })
     if (res.code === 0) {
-      ElMessage({ type: 'success', message: t('general.setupSuccess') })
+      relation()
       emit('changeRow', 'defaultRouter', res.data.authority.defaultRouter)
     }
   }
@@ -174,9 +155,7 @@
     if (res.code === 0) {
       ElMessage({
         type: 'success',
-        message: t(
-          'view.superAdmin.authority.components.menus.menuSetupSuccess'
-        )
+        message: t('view.superAdmin.authority.components.menus.menuSetupSuccess')
       })
     }
   }
