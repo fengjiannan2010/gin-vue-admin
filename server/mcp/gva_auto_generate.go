@@ -188,7 +188,7 @@ func (t *AutomationModuleAnalyzer) New() mcp.Tool {
       "desc": "详情显示(bool)",
       "excel": "导入导出(bool)",
       "require": "是否必填(bool)",
-      "defaultValue": "默认值(string)",
+      "defaultValue": "默认值(string)，JSON类型（array,json,file,pictures）请保持为空他们不可以设置默认值",
       "errorText": "错误提示(string)",
       "clearable": "是否可清空(bool)",
       "sort": "是否排序(bool)",
@@ -1243,7 +1243,7 @@ func (t *AutomationModuleAnalyzer) validateExecutionPlan(plan *ExecutionPlan) er
 				if field.FieldName == "" {
 					return fmt.Errorf("模块 %d 字段 %d 的 fieldName 不能为空", moduleIndex+1, i+1)
 				}
-
+				
 				// 确保字段名首字母大写
 				if len(field.FieldName) > 0 {
 					firstChar := string(field.FieldName[0])
@@ -1377,7 +1377,7 @@ func (t *AutomationModuleAnalyzer) executeCreation(ctx context.Context, plan *Ex
 		}
 
 		result.Message += fmt.Sprintf("批量创建完成，共处理 %d 个模块; ", len(plan.ModulesInfo))
-
+		
 		// 添加重要提醒：不要使用其他MCP工具
 		result.Message += "\n\n⚠️ 重要提醒：\n"
 		result.Message += "模块创建已完成，API和菜单已自动生成。请不要再调用以下MCP工具：\n"

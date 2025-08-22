@@ -20,6 +20,8 @@ type RequirementAnalysisRequest struct {
 	UserRequirement string `json:"userRequirement"`
 }
 
+
+
 // RequirementAnalysisResponse 需求分析响应
 type RequirementAnalysisResponse struct {
 	AIPrompt string `json:"aiPrompt"` // 给AI的提示词
