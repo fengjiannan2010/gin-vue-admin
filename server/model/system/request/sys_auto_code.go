@@ -3,13 +3,15 @@ package request
 import (
 	"encoding/json"
 	"fmt"
+	"go/token"
+	"strings"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	model "github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/pkg/errors"
-	"go/token"
-	"strings"
 )
 
+// TODO 测试后在定
 type AutoCode struct {
 	Package             string                 `json:"package"`
 	PackageT            string                 `json:"-"`
@@ -62,38 +64,38 @@ func (r *AutoCode) Apis() []model.SysApi {
 	return []model.SysApi{
 		{
 			Path:        "/" + r.Abbreviation + "/" + "create" + r.StructName,
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "add", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.add") + r.Description,
+			ApiGroup:    r.Description,
 			Method:      "POST",
 		},
 		{
 			Path:        "/" + r.Abbreviation + "/" + "delete" + r.StructName,
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "delete", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.delete") + r.Description,
+			ApiGroup:    r.Description,
 			Method:      "DELETE",
 		},
 		{
 			Path:        "/" + r.Abbreviation + "/" + "delete" + r.StructName + "ByIds",
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "batch", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.batchDelete") + r.Description,
+			ApiGroup:    r.Description,
 			Method:      "DELETE",
 		},
 		{
 			Path:        "/" + r.Abbreviation + "/" + "update" + r.StructName,
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "update", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.update") + r.Description,
+			ApiGroup:    r.Description,
 			Method:      "PUT",
 		},
 		{
 			Path:        "/" + r.Abbreviation + "/" + "find" + r.StructName,
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "find", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.findById") + r.Description,
+			ApiGroup:    r.Description,
 			Method:      "GET",
 		},
 		{
 			Path:        "/" + r.Abbreviation + "/" + "get" + r.StructName + "List",
-			Description: fmt.Sprintf("system.api.desc.%s%s%s", "list", r.Package, r.StructName),
-			ApiGroup:    fmt.Sprintf("system.api.group.%s%s", r.Package, r.StructName),
+			Description: global.Translate("model.system.request.get") + r.Description + global.Translate("model.system.request.list"),
+			ApiGroup:    r.Description,
 			Method:      "GET",
 		},
 	}
@@ -110,7 +112,7 @@ func (r *AutoCode) Menu(template string) model.SysBaseMenu {
 		Name:      r.Abbreviation,
 		Component: component,
 		Meta: model.Meta{
-			Title: fmt.Sprintf("system.menu.%s%s", r.Package, r.StructName),
+			Title: r.Description,
 		},
 	}
 }

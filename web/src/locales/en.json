@@ -135,6 +135,7 @@
     "noOnlySpace": "Cannot input only spaces",
     "operations": "Operations",
     "order": "Order Mark",
+    "orderNote": "Please enter the sort number",
     "placeInputEndData": "Please enter the end date",
     "placeInputStartData": "Please enter the start date",
     "pleaseEnter": "Please enter",
@@ -268,7 +269,8 @@
     "multiLogin": "Multi-login interception",
     "ossType": "Oss Type",
     "portValue": "Port Value",
-    "systemConfig": "System Configuration"
+    "systemConfig": "System Configuration",
+    "resetConfig": "Reset Configuration"
   },
   "pinia": {
     "modules": {
@@ -532,12 +534,20 @@
         "paremeterKey": "Parameter Key",
         "parent": "Parent",
         "parentId": "Parent ID",
+        "parentNote": "Please select a parent node",
         "rootDirctory": "Root Directory",
         "rootMenu": "Root Menu",
         "routeName": "Route Name",
         "routeNameNote": "Unique English string",
         "routePath": "Route Path",
         "routePathNote": "It is recommended to only stitch the parameters at the back",
+        "routeAnimation":"Route switching animation",
+        "routeAnimationNote": "If a route switching animation is set, the animation priority under this route is higher than the global animation switching priority.",
+        "routeAnimationGlobal": "Follow the global",
+        "routeAnimationFade": "Fade in and out",
+        "routeAnimationSlide": "Slide",
+        "routeAnimationZoom": "Zoom",
+        "routeAnimationNone": "No animation",
         "show": "Show",
         "sort": "Sort",
         "subMenuNote": "If the menu contains submenus, create a router-view secondary routing page or",
@@ -548,8 +558,13 @@
         "comments": "Comments",
         "highlightMenu": "Highlight Menu",
         "highlightMenuNote": "Note: When this route is reached, the specified left menu specifies that name will be active (lit), which can be null, and null is the Name of this route.",
+        "highlightMenuSubNote": "Please enter the highlighted menu name",
         "basicPage": "Is it a basic page?",
         "basicPageNote": "If you select Yes for this option, the left menu and top information will not be displayed.",
+        "basicInformation":"Basic Information",
+        "routeConfig":"Route Configuration",
+        "displaySettings":"Display Settings",
+        "advancedConfiguration":"Advanced Configuration",
         "": ""
       },
       "params": {

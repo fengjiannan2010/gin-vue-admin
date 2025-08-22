@@ -11,7 +11,7 @@ package {{.Package}}
 {{- if not .OnlyTemplate}}
 import (
 	{{- if .GvaModel }}
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"{{.Module}}/global"
 	{{- end }}
 	{{- if or .HasTimer }}
 	"time"
@@ -49,7 +49,6 @@ func ({{.StructName}}) TableName() string {
     return "{{.TableName}}"
 }
 {{ end }}
-
 
 {{if .IsTree }}
 // GetChildren 实现TreeNode接口

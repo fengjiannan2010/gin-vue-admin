@@ -71,6 +71,15 @@
                 "operationFail": "操作失败",
                 "operationSuccess": "操作成功",
                 "success": "成功"
+            },
+            "request": {
+              "add": "新增",
+              "delete": "删除",
+              "batchDelete": "批量删除",
+              "update": "更新",
+              "findById": "根据ID获取",
+              "get": "获取",
+              "list": "列表"
             }
         }
     },
@@ -103,7 +112,7 @@
         "templateFileReadFailed": "[filepath:%s]读取模版文件失败!",
         "directoryCreationFailed": "[filepath:%s]创建文件夹失败!",
         "generationFailed": "[filepath:%s]生成失败!",
-        "generationSuccess": "[template:%s][filepath:%s]生成成功!",
+        "generationSuccess": "[template:%s][filepath:%s]生成成功!\n",
         "injection_success": "[type:%s] 注入成功!\n",
         "templateFolderReadFailed": "读取模版文件夹失败!",
         "illegalTemplateFile": "[filepath:%s] 非法模版文件!",
@@ -177,7 +186,7 @@
     },
     "sys_user": {
         "changePWErr": "修改失败，原密码与当前账户不符",
-        "deleteUserFail": "删除失败, 自杀失败",
+        "deleteUserFail": "删除用户失败",
         "getTokenErr": "获取token失败",
         "getTokenFail": "获取token失败!",
         "jwtInvalidationFailed": "jwt作废失败",
@@ -352,7 +361,8 @@
                 "tableTemplate": "表格模板",
                 "templateConfiguration": "模板配置",
                 "parameterManagement": "参数管理",
-                "mediaLibraryCategories": "媒体库分类"
+                "mediaLibraryCategories": "媒体库分类",
+                "codeGenerator": "代码生成器"
             }
         },
         "authority": {

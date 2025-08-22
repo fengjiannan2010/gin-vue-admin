@@ -3,12 +3,6 @@ package system
 import (
 	"context"
 	"fmt"
-	"go/token"
-	"os"
-	"path/filepath"
-	"strings"
-	"text/template"
-
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	common "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	model "github.com/flipped-aurora/gin-vue-admin/server/model/system"
@@ -17,7 +11,12 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/ast"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/autocode"
 	"github.com/pkg/errors"
+	"go/token"
 	"gorm.io/gorm"
+	"os"
+	"path/filepath"
+	"strings"
+	"text/template"
 )
 
 var AutoCodePackage = new(autoCodePackage)
@@ -62,9 +61,7 @@ func (s *autoCodePackage) Create(ctx context.Context, info *request.SysAutoCodeP
 			var files *template.Template
 			files, err = template.New(filepath.Base(key)).Funcs(autocode.GetTemplateFuncMap()).ParseFiles(key)
 			if err != nil {
-				translation := global.Translate("sys_auto_code.templateFileReadFailed")
-				formattedMessage := fmt.Sprintf(translation, key)
-				return errors.Wrap(err, formattedMessage)
+				return errors.Wrapf(err, global.Translate("sys_auto_code.templateFileReadFailed"), value)
 			}
 			err = os.MkdirAll(filepath.Dir(value), os.ModePerm)
 			if err != nil {

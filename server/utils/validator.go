@@ -2,11 +2,12 @@ package utils
 
 import (
 	"errors"
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 )
 
 type Rules map[string][]string

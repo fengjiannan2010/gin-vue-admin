@@ -1,4 +1,3 @@
-{{- $top := . -}}
 {{- if .IsAdd }}
 // 新增表单中增加如下代码
 {{- range .Fields}}
@@ -26,22 +25,22 @@ const {{ $element }}Options = ref([])
         {{- end }}
 // 验证规则中增加如下字段
 
-   {{- range .Fields }}
+{{- range .Fields }}
         {{- if .Form }}
             {{- if eq .Require true }}
-               {{.FieldJson }} : [{
-                   required: true,
-                   message: '{{ .ErrorText }}',
-                   trigger: ['input','blur'],
-               },
+{{.FieldJson }} : [{
+    required: true,
+    message: '{{ .ErrorText }}',
+    trigger: ['input','blur'],
+},
                {{- if eq .FieldType "string" }}
-               {
-                   whitespace: true,
-                   message: t('general.noOnlySpace'),
-                   trigger: ['input', 'blur'],
-              }
+{
+    whitespace: true,
+    message: t('general.noOnlySpace'),
+    trigger: ['input', 'blur'],
+}
               {{- end }}
-              ],
+],
             {{- end }}
         {{- end }}
     {{- end }}
@@ -86,7 +85,7 @@ getDataSourceFunc()
       {{- end }}
       {{- end }}
         <el-form-item>
-          <el-button type="primary" @click="save">{{ "{{ t('general.save') }}" }}</el-button>
+          <el-button :loading="btnLoading" type="primary" @click="save">{{ "{{ t('general.save') }}" }}</el-button>
           <el-button type="primary" @click="back">{{ "{{ t('general.back') }}" }}</el-button>
         </el-form-item>
       </el-form>
@@ -185,27 +184,16 @@ const formData = ref({
           {{- end }}
         {{- end }}
         })
-
 // 验证规则
 const rule = reactive({
     {{- range .Fields }}
-        {{- if .Form }}
             {{- if eq .Require true }}
                {{.FieldJson }} : [{
                    required: true,
                    message: '{{ .ErrorText }}',
                    trigger: ['input','blur'],
-               },
-               {{- if eq .FieldType "string" }}
-               {
-                   whitespace: true,
-                   message: t('general.noOnlySpace'),
-                   trigger: ['input', 'blur'],
-              }
-              {{- end }}
-              ],
+               }],
             {{- end }}
-        {{- end }}
     {{- end }}
 })
 
@@ -242,8 +230,9 @@ const init = async () => {
 init()
 // 保存按钮
 const save = async() => {
+      btnLoading.value = true
       elFormRef.value?.validate( async (valid) => {
-         if (!valid) return
+         if (!valid) return btnLoading.value = false
             let res
            switch (type.value) {
              case 'create':
@@ -256,6 +245,7 @@ const save = async() => {
                res = await create{{.StructName}}(formData.value)
                break
            }
+           btnLoading.value = false
            if (res.code === 0) {
              ElMessage({
                type: 'success',

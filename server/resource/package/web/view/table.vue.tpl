@@ -232,7 +232,7 @@ getDataSourceFunc()
             {{- if .IsTree }}
             <el-descriptions-item label="父节点">
                 <el-tree-select
-                  v-model="detailFrom.parentID"
+                  v-model="detailForm.parentID"
                   :data="[rootNode,...tableData]"
                   check-strictly
                   disabled
@@ -632,7 +632,7 @@ const enterDialog = async () => {
       })
 }
 
-const detailFrom = ref({})
+const detailForm = ref({})
 
 // 查看详情控制标记
 const detailShow = ref(false)
@@ -649,7 +649,7 @@ const getDetails = async (row) => {
   // 打开弹窗
   const res = await find{{.StructName}}({ {{.PrimaryField.FieldJson}}: row.{{.PrimaryField.FieldJson}} })
   if (res.code === 0) {
-    detailFrom.value = res.data
+    detailForm.value = res.data
     openDetailShow()
   }
 }
@@ -658,7 +658,7 @@ const getDetails = async (row) => {
 // 关闭详情弹窗
 const closeDetailShow = () => {
   detailShow.value = false
-  detailFrom.value = {}
+  detailForm.value = {}
 }
 
 

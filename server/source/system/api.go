@@ -198,7 +198,6 @@ func (i *initApi) InitializeData(ctx context.Context) (context.Context, error) {
 		{ApiGroup: "system.api.group.versionControl", Method: "POST", Path: "/sysVersion/importVersion", Description: "system.api.desc.syncVersion"},
 		{ApiGroup: "system.api.group.versionControl", Method: "DELETE", Path: "/sysVersion/deleteSysVersion", Description: "system.api.desc.deleteVersion"},
 		{ApiGroup: "system.api.group.versionControl", Method: "DELETE", Path: "/sysVersion/deleteSysVersionByIds", Description: "system.api.desc.batchDeleteVersion"},
-
 	}
 	if err := db.Create(&entities).Error; err != nil {
 		return ctx, errors.Wrap(err, sysModel.SysApi{}.TableName()+" "+global.Translate("general.tabelDataInitFail"))

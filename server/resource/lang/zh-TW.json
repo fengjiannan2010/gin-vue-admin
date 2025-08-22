@@ -176,7 +176,7 @@
   },
   "sys_user": {
     "changePWErr": "修改失敗，原密碼與當前賬戶不符",
-    "deleteUserFail": "刪除失敗, 自殺失敗",
+    "deleteUserFail": "刪除用戶失敗",
     "getTokenErr": "獲取token失敗",
     "getTokenFail": "獲取token失敗!",
     "jwtInvalidationFailed": "jwt作廢失敗",
