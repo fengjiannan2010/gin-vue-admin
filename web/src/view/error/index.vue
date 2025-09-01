@@ -26,6 +26,7 @@
   import { useI18n } from 'vue-i18n' // added by mohamed hassan to support multilanguage
 
   const { t } = useI18n() // added by mohamed hassan to support multilanguage
+  import { emitter } from '@/utils/bus'
 
   defineOptions({
     name: 'Error'
@@ -34,6 +35,17 @@
   const userStore = useUserStore()
   const router = useRouter()
   const toDashboard = () => {
-    router.push({ name: userStore.userInfo.authority.defaultRouter })
+    try {
+      router.push({ name: userStore.userInfo.authority.defaultRouter })
+    } catch (error) {
+        emitter.emit('show-error', {
+        code: '401',
+        message: "检测到其他用户修改了路由权限，请重新登录",
+        fn: () => {
+          userStore.ClearStorage()
+          router.push({ name: 'Login', replace: true })
+        }
+      })
+    }
   }
 </script>

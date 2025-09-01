@@ -5,15 +5,10 @@
 
 <template>
   <div class="flex items-center mx-4 gap-4">
-    <el-tooltip
-      class=""
-      effect="dark"
-      :content="t('layout.tools.videoTutorial')"
-      placement="bottom"
-    >
+    <el-tooltip class="" effect="dark" :content="t('layout.tools.videoTutorial')" placement="bottom">
       <el-dropdown @command="toDoc">
         <el-icon
-          class="w-8 h-8 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
+          class="w-8 h-8 p-2 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
         >
           <Film />
         </el-icon>
@@ -31,15 +26,10 @@
       </el-dropdown>
     </el-tooltip>
 
-    <el-tooltip
-      class=""
-      effect="dark"
-      :content="t('layout.tools.search')"
-      placement="bottom"
-    >
+    <el-tooltip class="" effect="dark" :content="t('layout.tools.search')" placement="bottom">
       <el-icon
-        class="w-8 h-8 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
         @click="handleCommand"
+        class="w-8 h-8 p-2 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
       >
         <Search />
       </el-icon>
@@ -52,7 +42,7 @@
       placement="bottom"
     >
       <el-icon
-        class="w-8 h-8 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
+        class="w-8 h-8 p-2 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
         @click="toggleSetting"
       >
         <Setting />
@@ -66,7 +56,7 @@
       placement="bottom"
     >
       <el-icon
-        class="w-8 h-8 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
+        class="w-8 h-8 p-2 shadow rounded-full border border-gray-200 dark:border-gray-600 cursor-pointer border-solid"
         :class="showRefreshAnmite ? 'animate-spin' : ''"
         @click="toggleRefresh"
       >
@@ -81,14 +71,14 @@
     >
       <el-icon
         v-if="appStore.isDark"
-        class="w-8 h-8 shadow rounded-full border border-gray-600 cursor-pointer border-solid"
+        class="w-8 h-8 p-2 shadow rounded-full border border-gray-600 cursor-pointer border-solid"
         @click="appStore.toggleTheme(false)"
       >
         <Sunny />
       </el-icon>
       <el-icon
         v-else
-        class="w-8 h-8 shadow rounded-full border border-gray-200 cursor-pointer border-solid"
+        class="w-8 h-8 p-2 shadow rounded-full border border-gray-200 cursor-pointer border-solid"
         @click="appStore.toggleTheme(true)"
       >
         <Moon />

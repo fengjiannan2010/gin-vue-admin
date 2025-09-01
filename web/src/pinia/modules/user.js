@@ -7,6 +7,7 @@ import { ref, computed } from 'vue'
 import { useRouterStore } from './router'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import { useStorage } from '@vueuse/core'
+
 import { useAppStore } from '@/pinia'
 import cookie from 'js-cookie'
 import i18n from '@/i18n' // added by mohamed hassan to multi languages
