@@ -45,12 +45,12 @@ func (i *initDict) InitializeData(ctx context.Context) (next context.Context, er
 	}
 	True := true
 	entities := []sysModel.SysDictionary{
-		{Name: "system.dictionary.gender", Type: "gender", Status: &True, Desc: "system.dictionary.genderDict"},
-		{Name: "system.dictionary.intType", Type: "int", Status: &True, Desc: "system.dictionary.intTypeDict"},
-		{Name: "system.dictionary.timeDateType", Type: "time.Time", Status: &True, Desc: "system.dictionary.timeDateTypeDict"},
-		{Name: "system.dictionary.floatType", Type: "float64", Status: &True, Desc: "system.dictionary.floatType"},
-		{Name: "system.dictionary.stringType", Type: "string", Status: &True, Desc: "system.dictionary.stringType"},
-		{Name: "system.dictionary.boolType", Type: "bool", Status: &True, Desc: "system.dictionary.boolType"},
+		{Name: "gender", Type: "gender", Status: &True, Desc: "genderDict"},
+		{Name: "intType", Type: "int", Status: &True, Desc: "intTypeDict"},
+		{Name: "timeDateType", Type: "time.Time", Status: &True, Desc: "timeDateTypeDict"},
+		{Name: "floatType", Type: "float64", Status: &True, Desc: "floatType"},
+		{Name: "stringType", Type: "string", Status: &True, Desc: "stringType"},
+		{Name: "boolType", Type: "bool", Status: &True, Desc: "boolType"},
 	}
 
 	if err = db.Create(&entities).Error; err != nil {

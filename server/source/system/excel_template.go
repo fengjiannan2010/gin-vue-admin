@@ -2,6 +2,7 @@ package system
 
 import (
 	"context"
+
 	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
@@ -49,11 +50,11 @@ func (i *initExcelTemplate) InitializeData(ctx context.Context) (context.Context
 			TableName:  "sys_apis",
 			TemplateID: "api",
 			TemplateInfo: `{
-"path":"路径",
-"method":"方法（大写）",
-"description":"方法介绍",
-"api_group":"方法分组"
-}`,
+				"path":"路径",
+				"method":"方法（大写）",
+				"description":"方法介绍",
+				"api_group":"方法分组"
+				}`,
 		},
 	}
 	if err := db.Create(&entities).Error; err != nil {
